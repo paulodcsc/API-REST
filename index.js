@@ -2,7 +2,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-require('dotenv').config()
+
+require("dotenv").config();
 
 //read JSON
 app.use(
@@ -12,6 +13,11 @@ app.use(
 );
 
 app.use(express.json());
+
+//rotas
+const itemRoutes = require("./routes/itemRoutes");
+
+app.use("/item", itemRoutes);
 
 //first route
 app.get("/", (req, res) => {
