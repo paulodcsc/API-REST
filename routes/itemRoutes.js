@@ -37,9 +37,20 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id; //extraindo parametro da url
   try {
     const item = await Item.findOne({ _id: id }); //o id da aplicação tem que ser igual o _id do DB
-  } catch {
+    
+    if(!item) {
+      res.status(422).json({message: 'Usuário não foi encontrado!'})
+      return
+    }
+
+    res.status(200).json(item)
+  } catch (error) {
     res.status(500).json({ error: error });
   }
 });
+
+router.patch('/:id', async (req, res) => {
+  const id = req.params.id
+})
 
 module.exports = router;
