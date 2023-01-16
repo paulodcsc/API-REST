@@ -21,7 +21,7 @@ app.use("/item", itemRoutes);
 
 //first route
 app.get("/", (req, res) => {
-  res.json({ message: "Oi!" });
+  res.send("OK");
 });
 
 //deliver a port
