@@ -1,6 +1,8 @@
 //initial config
 const express = require("express");
+import { ErrorRequestHandler, Request, Response } from "express";
 const mongoose = require("mongoose");
+
 const app = express();
 
 require("dotenv").config();
@@ -20,7 +22,7 @@ const itemRoutes = require("./routes/itemRoutes");
 app.use("/item", itemRoutes);
 
 //first route
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("OK");
 });
 
@@ -31,5 +33,5 @@ mongoose
   .then(() => {
     console.log("Banco conectado!");
   })
-  .catch((err) => console.log(err));
+  .catch((err: ErrorRequestHandler) => console.log(err));
 app.listen(3001);

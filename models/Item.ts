@@ -9,4 +9,4 @@ const Item = mongoose.model("Item", {
   happyHourPrice: Number,
 });
 
-module.exports = Item;
+export default Item;

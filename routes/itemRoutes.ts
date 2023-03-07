@@ -1,9 +1,8 @@
 const router = require("express").Router();
-const { restart } = require("nodemon");
-const { update } = require("../models/Item");
-const Item = require("../models/Item");
+import { Request, Response } from 'express'
+import Item from "../models/Item";
 
-router.post("/", async (req, res) => {
+router.post("/", async (req: Request, res: Response) => {
   const { name, price, category, description, happyHour, happyHourPrice } =
     req.body;
 
@@ -24,17 +23,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
     const item = await Item.find();
 
     res.status(200).json(item);
   } catch (error) {
-    res.statis(500).send(error);
+    res.status(500).send(error);
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req: Request, res: Response) => {
   const id = req.params.id; //extraindo parametro da url
   try {
     const item = await Item.findOne({ _id: id }); //o id da aplicação tem que ser igual o _id do DB
@@ -50,7 +49,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req: Request, res: Response) => {
   const id = req.params.id;
 
   const { name, price, category, description, happyHour, happyHourPrice } = req.body;
@@ -79,7 +78,7 @@ router.patch('/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req: Request, res: Response) => {
   const id = req.params.id;
   const item = await Item.findOne({ _id: id })
 
