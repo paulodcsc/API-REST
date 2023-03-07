@@ -3,16 +3,16 @@ import { Request, Response } from 'express'
 import Item from "../models/Item";
 
 router.post("/", async (req: Request, res: Response) => {
-  const { name, price, category, description, happyHour, happyHourPrice } =
+  const { title, description, price, category, tags, serving_size } =
     req.body;
 
   const item = {
-    name,
+    title,
+    description,
     price,
     category,
-    description,
-    happyHour,
-    happyHourPrice,
+    tags,
+    serving_size
   };
 
   try {
@@ -52,15 +52,15 @@ router.get("/:id", async (req: Request, res: Response) => {
 router.patch('/:id', async (req: Request, res: Response) => {
   const id = req.params.id;
 
-  const { name, price, category, description, happyHour, happyHourPrice } = req.body;
+  const { title, description, price, category, tags, serving_size } = req.body;
 
   const item = {
-    name,
+    title,
+    description,
     price,
     category,
-    description,
-    happyHour,
-    happyHourPrice,
+    tags,
+    serving_size
   };
 
   try {
@@ -88,10 +88,22 @@ router.delete('/:id', async (req: Request, res: Response) => {
   }
   try {
     await Item.deleteOne({ _id: id })
-    res.status(200).send("Item removido!")
+    res.status(200).json(item)
   } catch (error) {
     res.status(500).json({ error: error })
   }
 })
+
+router.delete("/", async (req: Request, res: Response) => {
+  const item = await Item.find();
+
+  try {
+    await Item.deleteMany({});
+    res.status(200).send(item)
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
+})
+
 
 module.exports = router;

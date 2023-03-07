@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const Item = mongoose.model("Item", {
-  name: String,
+  title: String,
+  description: String,
   price: Number,
   category: String,
-  description: String,
-  happyHour: Boolean,
-  happyHourPrice: Number,
+  tags: String,
+  serving_size: Number,
 });
 
 export default Item;
